@@ -27,7 +27,7 @@ const getCharacterIcon = (id: string) => {
   return `${axiosInstance.defaults.baseURL}/characters/${normId}/images/icon`;
 };
 
-const CharacterModal = ({ character, onClose }: CharacterModalProps) => {
+const CharacterModal = ({ open, character, onClose }: CharacterModalProps) => {
   const {
     charactersProgress,
     updateLevel,
@@ -44,7 +44,7 @@ const CharacterModal = ({ character, onClose }: CharacterModalProps) => {
 
   if (!character) return null;
   return (
-    <Dialog open={true} onOpenChange={onClose}>
+    <Dialog open={open} onOpenChange={onClose}>
       <DialogContent
         className="w-[650px] !max-w-none mt-6 p-0 overflow-hidden bg-zinc-900 shadow-lg"
         style={{ top: "1rem", transform: "translateY(50%)" }}

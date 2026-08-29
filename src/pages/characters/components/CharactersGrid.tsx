@@ -16,6 +16,7 @@ const CharactersGrid = ({ rarity, attribute, weapon }: CharactersGridProps) => {
   const { characters, fetchCharacters } = useCharactersStore();
   const { initCharProgress } = useCharacterProgressStore();
 
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(
     null,
   );
@@ -36,6 +37,7 @@ const CharactersGrid = ({ rarity, attribute, weapon }: CharactersGridProps) => {
   const handleOpenCharacter = (character: Character) => {
     initCharProgress(character);
     setSelectedCharacter(character);
+    setIsModalOpen(true)
   };
 
   return (
@@ -55,9 +57,9 @@ const CharactersGrid = ({ rarity, attribute, weapon }: CharactersGridProps) => {
       </div>
       {selectedCharacter && (
         <CharacterModal
-          open={true}
+          open={isModalOpen}
           character={selectedCharacter}
-          onClose={() => setSelectedCharacter(null)}
+          onClose={() => setIsModalOpen(false)}
         />
       )}
     </>

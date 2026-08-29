@@ -26,16 +26,16 @@ const getWeaponIcon = (id: string) => {
 const WeaponModal = ({ open, weapon, onClose }: WeaponModalProps) => {
   const { weaponsProgress, updateLevel } = useWeaponProgressStore();
 
-  const completeLeveling = () => {};
+  const completeLeveling = () => { };
 
   if (!weapon) return null;
   return (
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent
         className="w-[650px] !max-w-none mt-6 p-0 overflow-hidden bg-zinc-900 shadow-lg"
-        style={{ top: "1rem", transform: "translateY(50%" }}
+        style={{ top: "1rem", transform: "translateY(50%)" }}
       >
-        <DialogHeader className="flex flex-row items-center gap-4 p-4 bg-gradient-to-br from-zinc-800 to bg-zinc-700 border-b border-zinc-700">
+        <DialogHeader className="flex flex-row items-center gap-4 p-4 bg-gradient-to-br from-zinc-800 to-zinc-700 border-b border-zinc-700">
           <div className="w-16 h-16 rounded-full overflow-hidden bg-zinc-600 justify-center">
             <img
               src={getWeaponIcon(weapon.id)}
@@ -80,7 +80,7 @@ const WeaponModal = ({ open, weapon, onClose }: WeaponModalProps) => {
           </div>
           <div className="flex justify-end">
             <ConfirmDialog
-              title="Finish Character"
+              title="Finish Weapon"
               description="Materials will be consumed"
               onConfirm={() => completeLeveling()}
               trigger={
