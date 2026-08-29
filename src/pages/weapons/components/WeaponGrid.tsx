@@ -39,7 +39,7 @@ const WeaponGrid = ({ rarity, weaponType }: WeaponGridProps) => {
   return (
     <>
       <div className="mt-6">
-        <div className="grid grid-cols-8 gap-x-4 gap-y-8">
+        <div className="grid grid-cols-10 gap-x-4 gap-y-8">
           {filteredWeapons
             .sort((a, b) => a.name.localeCompare(b.name))
             .map((weapon) => (

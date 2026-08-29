@@ -36,12 +36,6 @@ const CharacterModal = ({ open, character, onClose }: CharacterModalProps) => {
     resetCharacter,
   } = useCharacterProgressStore();
 
-  const completeLeveling = () => {};
-
-  const completeTalents = () => {};
-
-  const completeSkills = () => {};
-
   if (!character) return null;
   return (
     <Dialog open={open} onOpenChange={onClose}>
@@ -132,19 +126,6 @@ const CharacterModal = ({ open, character, onClose }: CharacterModalProps) => {
                   }
                   minValue={
                     charactersProgress[character.id].level.currentLevel ?? 1
-                  }
-                />
-              </div>
-              <div className="flex justify-end">
-                <ConfirmDialog
-                  title="Finish Character"
-                  description="Materials will be consumed"
-                  onConfirm={() => completeLeveling()}
-                  trigger={
-                    <Button className="font-semibold px-6 py-2 rounded-lg shadow-md">
-                      <Check className="w-4 h-4 mr-2" />
-                      Done
-                    </Button>
                   }
                 />
               </div>
@@ -278,18 +259,6 @@ const CharacterModal = ({ open, character, onClose }: CharacterModalProps) => {
                             </ToggleGroupItem>
                           </ToggleGroup>
                         ))}
-                      </div>
-                      <div className="flex justify-center mt-5">
-                        <Button
-                          onClick={() => {
-                            completeTalents();
-                            completeSkills();
-                          }}
-                          className="font-semibold px-6 py-2 rounded-lg shadow-md"
-                        >
-                          <Check className="w-4 h-4 mr-2" />
-                          Done
-                        </Button>
                       </div>
                     </div>
                   </div>
