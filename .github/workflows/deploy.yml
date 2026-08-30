@@ -31,6 +31,8 @@ jobs:
             - name: Deploy
               run: |
                 mkdir -p ~/.ssh/github_wuwaplanner
+                echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/github_wuwaplanner
+                chmod 600 ~/.ssh/github_wuwaplanner
 
                 ssh \
                     -i ~/.ssh/github_wuwaplanner \
