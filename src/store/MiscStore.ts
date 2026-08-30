@@ -26,7 +26,7 @@ export const useMiscStore = create<MiscStore>((set, get) => ({
       set({ attributes: response.data.attributes });
       set({ weaponsTypes: response.data.weapons });
       set({ nations: response.data.nations });
-    } catch (error: any) {
+    } catch (error: unknown) {
       set({ error: parseError(error) });
     } finally {
       set({ isLoading: false });
