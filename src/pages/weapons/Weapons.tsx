@@ -27,7 +27,7 @@ const Weapons = () => {
 
   useEffect(() => {
     fetchMisc();
-  }, []);
+  }, [fetchMisc]);
 
   useEffect(() => {
     localStorage.setItem(

@@ -36,7 +36,7 @@ const Characters = () => {
 
   useEffect(() => {
     fetchMisc();
-  }, []);
+  }, [fetchMisc]);
 
   useEffect(() => {
     localStorage.setItem(
