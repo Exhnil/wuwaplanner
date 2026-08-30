@@ -1,0 +1,23 @@
+name: SSH Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  ssh-test:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/github_wuwaplanner
+          chmod 600 ~/.ssh/github_wuwaplanner
+
+      - name: Test SSH connection
+        run: |
+          ssh \
+            -i ~/.ssh/github_wuwaplanner \
+            -o StrictHostKeyChecking=no \
+            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
+            "whoami && hostname"
