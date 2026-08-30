@@ -28,7 +28,7 @@ jobs:
             - name: Build
               run: npm run build
 
-            - name: Deploy
+            - name: Prepare SSH
               run: |
                 mkdir -p ~/.ssh
                 echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/github_wuwaplanner
@@ -39,3 +39,10 @@ jobs:
                     -o StrictHostKeyChecking=no \
                     ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
                     "echo 'Connected to server:' && hostname && echo 'User:' && whoami"
+                
+            - name: Deploy
+              run: |
+                rsync -avz --delete \
+                    -e "ssh -i ~/.ssh/github_wuwaplanner -o StrictHostChecking=no" \
+                    dist/ \
+                    ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST}}:/var/www/wuwa

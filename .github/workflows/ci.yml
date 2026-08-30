@@ -10,7 +10,7 @@ on:
             - develop
 
 jobs:
-    build:
+    integrate:
         runs-on: ubuntu-24.04
 
         steps:
