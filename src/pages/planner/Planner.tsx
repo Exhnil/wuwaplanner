@@ -8,7 +8,6 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Card, CardTitle } from "@/components/ui/card";
-import { axiosInstance } from "@/lib/axios";
 import { useInventoryStore } from "@/store/InventoryStore";
 import { calculate, computeDomainRuns } from "@/lib/calculateMaterials";
 import { useCharacterProgressStore } from "@/store/CharacterProgressStore";
@@ -17,11 +16,7 @@ import { useWeaponProgressStore } from "@/store/WeaponProgressStore";
 import { useWeaponStore } from "@/store/WeaponStore";
 import type { Item } from "@/types";
 import MaterialPopover from "./components/MaterialPopover";
-
-const getMaterialIcon = (id: string) => {
-  const normId = id.toLowerCase().replace(/_/g, "-");
-  return `${axiosInstance.defaults.baseURL}/materials/${normId}/images/${normId}`;
-};
+import { getMaterialIcon } from "@/lib/images";
 
 const getRarityColor = (rarity: number) => {
   return rarityColors[rarity] ?? "from-transparent";

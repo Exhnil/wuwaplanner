@@ -6,7 +6,6 @@ import {
 } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { axiosInstance } from "@/lib/axios";
 import { ranks, skillNames } from "@/lib/constants";
 import type { Character, UnlockProgress } from "@/types";
 import { Check, ChevronRight, Flag, Save } from "lucide-react";
@@ -15,17 +14,13 @@ import LevelSelector from "./LevelSelector";
 import { Button } from "@/components/ui/button";
 import ConfirmDialog from "@/layout/components/ConfirmDialog";
 import { useCharacterProgressStore } from "@/store/CharacterProgressStore";
+import { getCharacterIcon } from "@/lib/images";
 
 interface CharacterModalProps {
   character: Character | null;
   open: boolean;
   onClose: () => void;
 }
-
-const getCharacterIcon = (id: string) => {
-  const normId = id.toLowerCase().replace(/[_\s]/g, "-");
-  return `${axiosInstance.defaults.baseURL}/characters/${normId}/images/icon`;
-};
 
 const CharacterModal = ({ character, onClose }: CharacterModalProps) => {
   const {
@@ -36,11 +31,11 @@ const CharacterModal = ({ character, onClose }: CharacterModalProps) => {
     resetCharacter,
   } = useCharacterProgressStore();
 
-  const completeLeveling = () => {};
+  const completeLeveling = () => { };
 
-  const completeTalents = () => {};
+  const completeTalents = () => { };
 
-  const completeSkills = () => {};
+  const completeSkills = () => { };
 
   if (!character) return null;
   return (

@@ -4,9 +4,9 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { axiosInstance } from "@/lib/axios";
 import type { Domain, Item } from "@/types";
 import MaterialPopover from "./MaterialPopover";
+import { getMaterialIcon } from "@/lib/images";
 
 interface DomainCardProps {
   domain: Domain;
@@ -14,11 +14,6 @@ interface DomainCardProps {
   runs: number;
   items: Item[];
 }
-
-const getMaterialIcon = (id: string) => {
-  const normId = id.toLowerCase().replace(/_/g, "-");
-  return `${axiosInstance.defaults.baseURL}/materials/${normId}/images/${normId}`;
-};
 
 const rarityColors: Record<number, string> = {
   2: "bg-green-400",

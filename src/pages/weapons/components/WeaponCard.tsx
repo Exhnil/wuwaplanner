@@ -1,7 +1,6 @@
-import { axiosInstance } from "@/lib/axios";
+import { getWeaponIcon } from "@/lib/images";
 import type { Weapon } from "@/types";
 import { AlertCircle } from "lucide-react";
-import { useCallback } from "react";
 
 interface WeaponCardProps {
   weapon: Weapon;
@@ -23,11 +22,6 @@ const WeaponCard = ({ weapon, setSelectedWeapon }: WeaponCardProps) => {
   const hasObjective = () => {
     return false;
   };
-
-  const getWeaponIcon = useCallback((id: string) => {
-    const normId = id.toLowerCase().replace(/&/g, "and").replace(/[_\s]/g, "-");
-    return `${axiosInstance.defaults.baseURL}/weapons/${normId}/images/icon`;
-  }, []);
 
   return (
     <div

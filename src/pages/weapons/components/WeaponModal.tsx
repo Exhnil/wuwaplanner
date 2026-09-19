@@ -6,7 +6,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import ConfirmDialog from "@/layout/components/ConfirmDialog";
-import { axiosInstance } from "@/lib/axios";
+import { getWeaponIcon } from "@/lib/images";
 import LevelSelector from "@/pages/characters/components/LevelSelector";
 import { useWeaponProgressStore } from "@/store/WeaponProgressStore";
 import type { Weapon } from "@/types";
@@ -18,15 +18,10 @@ interface WeaponModalProps {
   onClose: () => void;
 }
 
-const getWeaponIcon = (id: string) => {
-  const normId = id.toLowerCase().replace(/&/g, "and").replace(/[_\s]/g, "-");
-  return `${axiosInstance.defaults.baseURL}/weapons/${normId}/images/icon`;
-};
-
 const WeaponModal = ({ open, weapon, onClose }: WeaponModalProps) => {
   const { weaponsProgress, updateLevel } = useWeaponProgressStore();
 
-  const completeLeveling = () => {};
+  const completeLeveling = () => { };
 
   if (!weapon) return null;
   return (

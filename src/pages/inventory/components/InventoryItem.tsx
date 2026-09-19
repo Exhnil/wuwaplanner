@@ -4,6 +4,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { axiosInstance } from "@/lib/axios";
+import { getMaterialIcon } from "@/lib/images";
 import type { Item } from "@/types";
 import { Minus, Plus } from "lucide-react";
 import { useCallback, useState } from "react";
@@ -22,14 +23,6 @@ const rarityColors: Record<number, string> = {
   3: "bg-blue-400",
   4: "bg-purple-600",
   5: "bg-equator-700",
-};
-
-const getMaterialIcon = (id: string) => {
-  const normId = id.toLowerCase().replace(/_/g, "-");
-
-  return `${
-    axiosInstance.defaults.baseURL
-  }/materials/${normId}/images/${normId}`;
 };
 
 const placeholderPath = `${axiosInstance.defaults.baseURL}/materials/placeholder/images/icon`;
@@ -63,9 +56,8 @@ const InventoryItem = ({
 
   return (
     <div
-      className={`flex flex-col items-center border rounded-none bg-zinc-800 transition-opacity ${
-        required === 0 ? "opacity-60" : "opacity-100"
-      } min-w-[4rem]`}
+      className={`flex flex-col items-center border rounded-none bg-zinc-800 transition-opacity ${required === 0 ? "opacity-60" : "opacity-100"
+        } min-w-[4rem]`}
     >
       <div className="flex justify-center relative w-full h-16 aspect-square bg-iron-900">
         <Tooltip>
@@ -96,13 +88,12 @@ const InventoryItem = ({
       </div>
       <div className="flex w-full flex-col">
         <span
-          className={`flex-1 text-center overflow-hidden px-1 py-0.5 text-sm font-semibold ${
-            required === 0
+          className={`flex-1 text-center overflow-hidden px-1 py-0.5 text-sm font-semibold ${required === 0
               ? "bg-zinc-500"
               : isEnough
                 ? "bg-green-400"
                 : "bg-red-400"
-          }`}
+            }`}
         >
           {required}
         </span>
