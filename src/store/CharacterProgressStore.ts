@@ -101,9 +101,8 @@ export const useCharacterProgressStore = create<CharacterProgressStore>()(
         }));
       },
       resetCharacter: (id: string) => {
-        delete get().charactersProgress[id];
         set((prev) => {
-          const charactersProgress = {...prev.charactersProgress}
+          const charactersProgress = { ...prev.charactersProgress }
           delete charactersProgress[id]
           return { charactersProgress };
         });

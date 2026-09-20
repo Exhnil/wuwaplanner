@@ -40,7 +40,7 @@ const InventoryItem = ({
   onChange,
 }: InventoryItemProps) => {
   const [imgSrc, setImgSrc] = useState(
-    getMaterialIcon(item.id.replace(/-/g, "_")),
+    getMaterialIcon(item.id),
   );
 
   const isConvertible = item.group && item.group !== "none";
@@ -89,10 +89,10 @@ const InventoryItem = ({
       <div className="flex w-full flex-col">
         <span
           className={`flex-1 text-center overflow-hidden px-1 py-0.5 text-sm font-semibold ${required === 0
-              ? "bg-zinc-500"
-              : isEnough
-                ? "bg-green-400"
-                : "bg-red-400"
+            ? "bg-zinc-500"
+            : isEnough
+              ? "bg-green-400"
+              : "bg-red-400"
             }`}
         >
           {required}

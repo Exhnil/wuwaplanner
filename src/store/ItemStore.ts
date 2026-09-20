@@ -14,7 +14,6 @@ interface ItemStore {
 
 export const useItemStore = create<ItemStore>((set) => ({
   items: [],
-  itemsList: [],
   domains: [],
   isLoading: false,
   error: null,

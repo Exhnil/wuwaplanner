@@ -49,9 +49,8 @@ export const useWeaponProgressStore = create<WeaponProgressStore>()(
         }));
       },
       resetWeapon: (id: string) => {
-        delete get().weaponsProgress[id];
         set((prev) => {
-          const weaponsProgress = {...prev.weaponsProgress}
+          const weaponsProgress = { ...prev.weaponsProgress }
           delete weaponsProgress[id]
           return { weaponsProgress };
         });

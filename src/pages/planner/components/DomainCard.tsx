@@ -57,7 +57,7 @@ const DomainCard = ({ domain, requiredMap, runs }: DomainCardProps) => {
                 >
                   <TooltipTrigger asChild>
                     <img
-                      src={getMaterialIcon(mat.id.replace(/[' -]/g, "_"))}
+                      src={getMaterialIcon(mat.id)}
                       alt={mat.id}
                       className="w-16 h-16 object-cover cursor-pointer"
                     />
