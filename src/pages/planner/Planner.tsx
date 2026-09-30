@@ -1,4 +1,4 @@
-import { useItemStore } from "@/store/ItemStore";
+import { useDataStore } from "@/store/DataStore";
 import { useEffect } from "react";
 import DomainCard from "./components/DomainCard";
 import SectionLayout from "./components/SectionLayout";
@@ -26,7 +26,7 @@ const rarityColors: Record<number, string> = {
 };
 
 const Planner = () => {
-	const { items, fetchAllMaterials, fetchAllDomains } = useItemStore();
+	const { items, fetchAllMaterials, fetchAllDomains } = useDataStore();
 	const { fetchCharacters } = useCharactersStore();
 	const { fetchWeapons } = useWeaponStore();
 	const { requiredMap, runsByDomain, filteredEnemyDrops, filteredLocalItems, groupedEnemyDrops, forgeryMaterials, overlordClasses, weeklyDomains, hasNothingToFarm, totalEnergy } = usePlannerData()

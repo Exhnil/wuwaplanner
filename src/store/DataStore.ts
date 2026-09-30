@@ -1,8 +1,9 @@
 import { axiosInstance } from "@/lib/axios";
+import { parseError } from "@/lib/errors";
 import type { Domain, Item } from "@/types";
 import { create } from "zustand";
 
-interface ItemStore {
+interface DataStore {
   items: Item[];
   domains: Domain[];
   isLoading: boolean;
@@ -12,7 +13,7 @@ interface ItemStore {
   fetchAllDomains: () => Promise<void>;
 }
 
-export const useItemStore = create<ItemStore>((set) => ({
+export const useDataStore = create<DataStore>((set) => ({
   items: [],
   domains: [],
   isLoading: false,
@@ -41,9 +42,3 @@ export const useItemStore = create<ItemStore>((set) => ({
     }
   },
 }));
-
-const parseError = (error: unknown): string => {
-  if (typeof error === "string") return error;
-  if (error instanceof Error) return error.message;
-  return "An unknown error occurred";
-};

@@ -1,4 +1,5 @@
 import { axiosInstance } from "@/lib/axios";
+import { parseError } from "@/lib/errors";
 import type { Character } from "@/types";
 import { create } from "zustand";
 
@@ -29,9 +30,3 @@ export const useCharactersStore = create<CharacterStore>((set, get) => ({
     }
   },
 }));
-
-const parseError = (error: unknown): string => {
-  if (typeof error === "string") return error;
-  if (error instanceof Error) return error.message;
-  return "An unknown error occurred";
-};

@@ -15,6 +15,7 @@ const WeaponGrid = ({ rarity, weaponType }: WeaponGridProps) => {
   const { weapons, fetchWeapons } = useWeaponStore();
   const { initWeaponsProgress } = useWeaponProgressStore();
 
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedWeapon, setSelectedWeapon] = useState<Weapon | null>(null);
 
   useEffect(() => {
@@ -32,12 +33,13 @@ const WeaponGrid = ({ rarity, weaponType }: WeaponGridProps) => {
   const handleOpenWeapon = (weapon: Weapon) => {
     initWeaponsProgress(weapon);
     setSelectedWeapon(weapon);
+    setIsModalOpen(true)
   };
 
   return (
     <>
       <div className="mt-6">
-        <div className="grid grid-cols-8 gap-x-4 gap-y-8">
+        <div className="grid grid-cols-10 gap-x-4 gap-y-8">
           {filteredWeapons
             .sort((a, b) => a.name.localeCompare(b.name))
             .map((weapon) => (
@@ -51,9 +53,9 @@ const WeaponGrid = ({ rarity, weaponType }: WeaponGridProps) => {
       </div>
       {selectedWeapon && (
         <WeaponModal
-          open={true}
+          open={isModalOpen}
           weapon={selectedWeapon}
-          onClose={() => setSelectedWeapon(null)}
+          onClose={() => setIsModalOpen(false)}
         />
       )}
     </>

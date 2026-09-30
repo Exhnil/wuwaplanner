@@ -2,7 +2,7 @@ import { calculate, computeDomainRuns } from "@/lib/calculateMaterials"
 import { useCharacterProgressStore } from "@/store/CharacterProgressStore"
 import { useCharactersStore } from "@/store/CharactersStore"
 import { useInventoryStore } from "@/store/InventoryStore"
-import { useItemStore } from "@/store/ItemStore"
+import { useDataStore } from "@/store/DataStore"
 import { useWeaponProgressStore } from "@/store/WeaponProgressStore"
 import { useWeaponStore } from "@/store/WeaponStore"
 import type { Item } from "@/types"
@@ -14,7 +14,7 @@ export const usePlannerData = () => {
     const { charactersProgress } = useCharacterProgressStore()
     const { weapons } = useWeaponStore()
     const { weaponsProgress } = useWeaponProgressStore()
-    const { domains, items } = useItemStore()
+    const { domains, items } = useDataStore()
     const { inventoryState } = useInventoryStore()
 
     const requiredMap = useMemo(() => {

@@ -41,7 +41,7 @@ export interface CharacterProgress {
   level: LevelProgress;
   skills: Record<string, SkillProgress>;
   bonusStats: Record<number, UnlockProgress[]>;
-  inherentSkills: Record<number, UnlockProgress>;
+  inherentSkills: Record<number, UnlockProgress[]>;
 }
 
 export interface LevelProgress {

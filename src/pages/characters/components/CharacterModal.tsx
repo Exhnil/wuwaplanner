@@ -22,7 +22,7 @@ interface CharacterModalProps {
   onClose: () => void;
 }
 
-const CharacterModal = ({ character, onClose }: CharacterModalProps) => {
+const CharacterModal = ({ character, open, onClose }: CharacterModalProps) => {
   const {
     charactersProgress,
     updateLevel,
@@ -31,15 +31,11 @@ const CharacterModal = ({ character, onClose }: CharacterModalProps) => {
     resetCharacter,
   } = useCharacterProgressStore();
 
-  const completeLeveling = () => { };
-
-  const completeTalents = () => { };
-
-  const completeSkills = () => { };
-
   if (!character) return null;
+  const progress = charactersProgress[character.id]
+
   return (
-    <Dialog open={true} onOpenChange={onClose}>
+    <Dialog open={open} onOpenChange={onClose}>
       <DialogContent
         className="w-[650px] !max-w-none mt-6 p-0 overflow-hidden bg-zinc-900 shadow-lg"
         style={{ top: "1rem", transform: "translateY(50%)" }}
@@ -109,9 +105,9 @@ const CharacterModal = ({ character, onClose }: CharacterModalProps) => {
               <div className="flex items-center justify-center space-x-4">
                 <LevelSelector
                   ascension={
-                    charactersProgress[character.id].level.currentAscensionLevel
+                    progress.level.currentAscensionLevel
                   }
-                  level={charactersProgress[character.id].level.currentLevel}
+                  level={progress.level.currentLevel}
                   onSelect={(lvl, ascension) =>
                     updateLevel(character.id, "current", lvl, ascension)
                   }
@@ -119,27 +115,14 @@ const CharacterModal = ({ character, onClose }: CharacterModalProps) => {
                 <ChevronRight className="h-6 w-6" />
                 <LevelSelector
                   ascension={
-                    charactersProgress[character.id].level.targetAscensionLevel
+                    progress.level.targetAscensionLevel
                   }
-                  level={charactersProgress[character.id].level.targetLevel}
+                  level={progress.level.targetLevel}
                   onSelect={(lvl, ascension) =>
                     updateLevel(character.id, "target", lvl, ascension)
                   }
                   minValue={
-                    charactersProgress[character.id].level.currentLevel ?? 1
-                  }
-                />
-              </div>
-              <div className="flex justify-end">
-                <ConfirmDialog
-                  title="Finish Character"
-                  description="Materials will be consumed"
-                  onConfirm={() => completeLeveling()}
-                  trigger={
-                    <Button className="font-semibold px-6 py-2 rounded-lg shadow-md">
-                      <Check className="w-4 h-4 mr-2" />
-                      Done
-                    </Button>
+                    progress.level.currentLevel
                   }
                 />
               </div>
@@ -160,8 +143,8 @@ const CharacterModal = ({ character, onClose }: CharacterModalProps) => {
                       <div className="flex items-center justify-center space-x-2">
                         <SkillLevelInput
                           value={
-                            charactersProgress[character.id]?.skills[skill]
-                              .currentSkillLevel ?? 1
+                            progress?.skills[skill]
+                              .currentSkillLevel
                           }
                           onChange={(val) =>
                             updateSkills(
@@ -177,8 +160,8 @@ const CharacterModal = ({ character, onClose }: CharacterModalProps) => {
 
                         <SkillLevelInput
                           value={
-                            charactersProgress[character.id]?.skills[skill]
-                              .targetSkillLevel ?? 1
+                            progress?.skills[skill]
+                              .targetSkillLevel
                           }
                           onChange={(val) =>
                             updateSkills(
@@ -201,7 +184,7 @@ const CharacterModal = ({ character, onClose }: CharacterModalProps) => {
                           Stat bonus Rank {rank}
                         </h4>
                         <div className="flex items-center justify-center gap-2">
-                          {charactersProgress[character.id].bonusStats[
+                          {progress.bonusStats[
                             rank
                           ].map((bonus, index) => (
                             <ToggleGroup
@@ -243,19 +226,20 @@ const CharacterModal = ({ character, onClose }: CharacterModalProps) => {
                       </h4>
                       <div className="flex items-center justify-center gap-2">
                         {Object.entries(
-                          charactersProgress[character.id].inherentSkills,
+                          progress.inherentSkills,
                         ).map(([rank, skill]) => (
                           <ToggleGroup
                             key={rank}
                             className="flex flex-row"
                             type="single"
-                            value={skill}
+                            value={skill[0]}
                             onValueChange={(val) =>
                               updateTalents(
                                 character.id,
                                 "inherentSkills",
                                 Number(rank),
                                 val as UnlockProgress,
+                                0
                               )
                             }
                           >
@@ -273,18 +257,6 @@ const CharacterModal = ({ character, onClose }: CharacterModalProps) => {
                             </ToggleGroupItem>
                           </ToggleGroup>
                         ))}
-                      </div>
-                      <div className="flex justify-center mt-5">
-                        <Button
-                          onClick={() => {
-                            completeTalents();
-                            completeSkills();
-                          }}
-                          className="font-semibold px-6 py-2 rounded-lg shadow-md"
-                        >
-                          <Check className="w-4 h-4 mr-2" />
-                          Done
-                        </Button>
                       </div>
                     </div>
                   </div>

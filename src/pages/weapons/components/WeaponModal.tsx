@@ -5,12 +5,11 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import ConfirmDialog from "@/layout/components/ConfirmDialog";
 import { getWeaponIcon } from "@/lib/images";
 import LevelSelector from "@/pages/characters/components/LevelSelector";
 import { useWeaponProgressStore } from "@/store/WeaponProgressStore";
 import type { Weapon } from "@/types";
-import { Check, ChevronRight, Save } from "lucide-react";
+import { ChevronRight, Save } from "lucide-react";
 
 interface WeaponModalProps {
   weapon: Weapon | null;
@@ -20,8 +19,6 @@ interface WeaponModalProps {
 
 const WeaponModal = ({ open, weapon, onClose }: WeaponModalProps) => {
   const { weaponsProgress, updateLevel } = useWeaponProgressStore();
-
-  const completeLeveling = () => { };
 
   if (!weapon) return null;
   return (
@@ -71,19 +68,6 @@ const WeaponModal = ({ open, weapon, onClose }: WeaponModalProps) => {
                 updateLevel(weapon.id, "target", lvl, ascension)
               }
               minValue={weaponsProgress[weapon.id]?.level.currentLevel ?? 1}
-            />
-          </div>
-          <div className="flex justify-end">
-            <ConfirmDialog
-              title="Finish Character"
-              description="Materials will be consumed"
-              onConfirm={() => completeLeveling()}
-              trigger={
-                <Button className="font-semibold px-6 py-2 rounded-lg shadow-md">
-                  <Check className="w-4 h-4 mr-2" />
-                  Done
-                </Button>
-              }
             />
           </div>
         </div>

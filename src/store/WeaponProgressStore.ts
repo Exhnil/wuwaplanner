@@ -6,9 +6,8 @@ import { persist } from "zustand/middleware";
 interface WeaponProgressStore {
   weaponsProgress: Record<string, WeaponProgress>;
 
-  error: string | null;
-
   initWeaponsProgress: (weapon: Weapon) => void;
+
   updateLevel: (
     id: string,
     side: "current" | "target",
@@ -23,7 +22,7 @@ export const useWeaponProgressStore = create<WeaponProgressStore>()(
     (set, get) => ({
       weaponsProgress: {},
       error: null,
-      initWeaponsProgress(weapon: Weapon) {
+      initWeaponsProgress: (weapon: Weapon) => {
         if (get().weaponsProgress[weapon.id]) return;
         set((prev) => ({
           weaponsProgress: initWeaponsProgressState(

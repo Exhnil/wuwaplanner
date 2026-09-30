@@ -11,9 +11,8 @@ import { persist } from "zustand/middleware";
 interface CharacterProgressStore {
   charactersProgress: Record<string, CharacterProgress>;
 
-  error: string | null;
-
   initCharProgress: (char: Character) => void;
+
   updateLevel: (
     id: string,
     side: "current" | "target",
@@ -31,7 +30,7 @@ interface CharacterProgressStore {
     side: "bonusStats" | "inherentSkills",
     rank: number,
     value: UnlockProgress,
-    index?: number,
+    index: number,
   ) => void;
   resetCharacter: (id: string) => void;
 }
@@ -87,7 +86,7 @@ export const useCharacterProgressStore = create<CharacterProgressStore>()(
         side: "bonusStats" | "inherentSkills",
         rank: number,
         value: UnlockProgress,
-        index?: number,
+        index: number,
       ) => {
         set((prev) => ({
           charactersProgress: updateTalentsState(

@@ -3,9 +3,6 @@ import { persist } from "zustand/middleware";
 
 interface InventoryStore {
   inventoryState: Record<string, number>;
-  init: boolean;
-
-  error: string | null;
 
   setOwned: (id: string, value: number) => void;
 }
