@@ -1,10 +1,10 @@
-import type { Material } from "@/types";
+import type { MaterialRequirement } from "@/types";
 
 export const addMaterial = (totalMats: Record<string, number>, id: string, quantity: number) => {
     totalMats[id] = (totalMats[id] ?? 0) + quantity;
 };
 
-export const addMaterials = (totalMats: Record<string, number>, materials: Material[]) => {
+export const addMaterials = (totalMats: Record<string, number>, materials: MaterialRequirement[]) => {
     for (const mat of materials) {
         addMaterial(totalMats, mat.id, mat.value)
     }

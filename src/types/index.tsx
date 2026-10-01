@@ -20,7 +20,7 @@ interface MaterialDrop {
   value: number;
 }
 
-interface MaterialRequirement {
+export interface MaterialRequirement {
   id: string;
   value: number;
 }
