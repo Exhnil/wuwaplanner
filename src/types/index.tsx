@@ -14,27 +14,31 @@ export interface Character {
   inherent_skill_materials: InherentSkillMaterials;
 }
 
-export interface Material {
+interface MaterialDrop {
   id: string;
-  name: string;
   rarity: number;
   value: number;
 }
 
+interface MaterialRequirement {
+  id: string;
+  value: number;
+}
+
 interface AscensionMaterials {
-  [ascensionLevel: string]: Material[];
+  [ascensionLevel: string]: MaterialRequirement[];
 }
 
 interface SkillMaterials {
-  [level: string]: Material[];
+  [level: string]: MaterialRequirement[];
 }
 
 interface StatsBonusMaterials {
-  [rank: string]: Material[];
+  [rank: string]: MaterialRequirement[];
 }
 
 interface InherentSkillMaterials {
-  [rank: string]: Material[];
+  [rank: string]: MaterialRequirement[];
 }
 
 export interface CharacterProgress {
@@ -92,7 +96,7 @@ export interface Domain {
   id: string;
   type: DomainType;
   cost: number;
-  materials: Material[];
+  materials: MaterialDrop[];
 }
 
 export type DomainType =

@@ -31,6 +31,11 @@ export const usePlannerData = () => {
         )
     }, [])
 
+    const itemById = useMemo(
+        () => new Map(items.map((item) => [item.id, item])),
+        [items],
+    );
+
     const filteredDomains = useMemo(() => {
         return domains
             .filter((domain) =>
@@ -44,7 +49,7 @@ export const usePlannerData = () => {
             .map((domain) => ({
                 ...domain,
                 materials: [...domain.materials].sort(
-                    (a, b) => b.rarity - a.rarity,
+                    (a, b) => (itemById.get(b.id)?.rarity ?? 0) - (itemById.get(a.id)?.rarity ?? 0),
                 ),
             }));
     }, [domains, requiredMap, inventoryState]);
@@ -52,7 +57,7 @@ export const usePlannerData = () => {
     const filteredLocalItems = useMemo(() => {
         return items.filter(
             (i) =>
-                i.source.toLowerCase().includes("local") &&
+                i.source === "local" &&
                 (requiredMap[i.id] ?? 0) > (inventoryState[i.id] ?? 0),
         );
     }, [items, requiredMap, inventoryState]);
@@ -60,7 +65,7 @@ export const usePlannerData = () => {
     const filteredEnemyDrops = useMemo(() => {
         return items.filter(
             (i) =>
-                i.source.toLowerCase().includes("local") &&
+                i.source === "enemies" &&
                 (requiredMap[i.id] ?? 0) > (inventoryState[i.id] ?? 0),
         );
     }, [items, requiredMap, inventoryState]);

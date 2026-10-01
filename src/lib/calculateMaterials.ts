@@ -8,8 +8,6 @@ import type {
 } from "@/types";
 import { addMaterials, mergeMats } from "./materialsUtils";
 
-
-
 export const calculateLevels = (
   reference: Character | Weapon,
   state: LevelProgress,
@@ -66,7 +64,7 @@ export const calculateTalents = (
     for (const inh of inherent) {
       if (inh !== "planned") continue;
       const key = `rank_${rank}`;
-      const mats = character.stats_bonus_materials[key];
+      const mats = character.inherent_skill_materials[key];
       if (mats) addMaterials(totalMats, mats);
     }
 
