@@ -56,7 +56,7 @@ export interface SkillProgress {
   targetSkillLevel: number;
 }
 
-export type UnlockProgress = "none" | "planned" | "done";
+export type UnlockProgress = "locked" | "planned" | "unlocked";
 
 export interface Weapon {
   id: string;
@@ -81,17 +81,24 @@ export interface Item {
 
 export interface CraftRecipe {
   outputId: string;
-  inputs: { id: string; amounf: number };
+  inputs: { id: string; amount: number };
   cost?: number;
 }
+
+export type MaterialsCounts = Record<string, number>
 
 export interface Domain {
   name: string;
   id: string;
-  type: string;
+  type: DomainType;
   cost: number;
   materials: Material[];
 }
+
+export type DomainType =
+  | "Forgery Challenge"
+  | "Overlord Class"
+  | "Weekly Challenge"
 
 export interface ChangelogEntry {
   id: string;

@@ -1,4 +1,4 @@
-import { calculate, computeDomainRuns } from "@/lib/calculateMaterials"
+import { calculate } from "@/lib/calculateMaterials"
 import { useCharacterProgressStore } from "@/store/CharacterProgressStore"
 import { useCharactersStore } from "@/store/CharactersStore"
 import { useInventoryStore } from "@/store/InventoryStore"
@@ -7,6 +7,7 @@ import { useWeaponProgressStore } from "@/store/WeaponProgressStore"
 import { useWeaponStore } from "@/store/WeaponStore"
 import type { Item } from "@/types"
 import { useMemo } from "react"
+import { computeDomainRuns } from "@/lib/calculateRuns"
 
 
 export const usePlannerData = () => {

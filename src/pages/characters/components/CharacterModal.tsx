@@ -209,7 +209,7 @@ const CharacterModal = ({ character, open, onClose }: CharacterModalProps) => {
                                 <Flag />
                               </ToggleGroupItem>
                               <ToggleGroupItem
-                                value="done"
+                                value="unlocked"
                                 className="bg-zinc-600 hover:bg-zinc-500"
                               >
                                 <Check />
@@ -251,7 +251,7 @@ const CharacterModal = ({ character, open, onClose }: CharacterModalProps) => {
                             </ToggleGroupItem>
                             <ToggleGroupItem
                               className="bg-zinc-600 hover:bg-zinc-500"
-                              value="done"
+                              value="unlocked"
                             >
                               <Check />
                             </ToggleGroupItem>

@@ -30,10 +30,10 @@ export const initCharacterProgressState = (
         ]),
       ) as Record<string, SkillProgress>,
       bonusStats: {
-        1: ["none", "none", "none", "none"],
-        2: ["none", "none", "none", "none"],
+        1: ["locked", "locked", "locked", "locked"],
+        2: ["locked", "locked", "locked", "locked"],
       },
-      inherentSkills: { 1: ["none"], 2: ["none"] },
+      inherentSkills: { 1: ["locked"], 2: ["locked"] },
     },
   };
 };
