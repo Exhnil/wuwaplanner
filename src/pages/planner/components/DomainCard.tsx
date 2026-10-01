@@ -26,7 +26,7 @@ const getRarityColor = (rarity: number) => {
   return rarityColors[rarity] ?? "from-transparent";
 };
 
-const DomainCard = ({ domain, requiredMap, runs }: DomainCardProps) => {
+const DomainCard = ({ domain, requiredMap, runs, items }: DomainCardProps) => {
   return (
     <Card
       key={domain.id}
@@ -43,6 +43,7 @@ const DomainCard = ({ domain, requiredMap, runs }: DomainCardProps) => {
       <div className="flex gap-2 mt-2">
         {domain.materials.map((mat) => {
           const required = requiredMap[mat.id] ?? 0;
+          const item = items.find((item) => item.id === mat.id)
 
           return (
             <div
@@ -64,7 +65,7 @@ const DomainCard = ({ domain, requiredMap, runs }: DomainCardProps) => {
                   </TooltipTrigger>
                 </MaterialPopover>
                 <TooltipContent>
-                  <p>{mat.name}</p>
+                  <p>{item?.name ?? mat.id}</p>
                 </TooltipContent>
               </Tooltip>
               <span className="absolute top-0 right-0 text-white text-xs px-1 font-semibold">
