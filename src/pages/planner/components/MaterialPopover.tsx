@@ -3,7 +3,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { axiosInstance } from "@/lib/axios";
+import { getMaterialIcon } from "@/lib/images";
 import { useInventoryStore } from "@/store/InventoryStore";
 import { Minus, Plus } from "lucide-react";
 
@@ -13,14 +13,6 @@ interface MaterialPopoverProps {
   required: number;
   children: React.ReactNode;
 }
-
-const getMaterialIcon = (id: string) => {
-  const normId = id.toLowerCase().replace(/_/g, "-");
-
-  return `${
-    axiosInstance.defaults.baseURL
-  }/materials/${normId}/images/${normId}`;
-};
 
 const rarityColors: Record<number, string> = {
   2: "bg-green-400",

@@ -1,8 +1,7 @@
 import { attributeIcons } from "@/constants/icons";
-import { axiosInstance } from "@/lib/axios";
+import { getCharacterIcon } from "@/lib/images";
 import type { Character } from "@/types";
 import { AlertCircle } from "lucide-react";
-import { useCallback } from "react";
 
 interface CharacterCardProps {
   character: Character;
@@ -25,11 +24,6 @@ const CharacterCard = ({
   const hasObjective = () => {
     return false;
   };
-
-  const getCharacterIcon = useCallback((id: string) => {
-    const normId = id.toLowerCase().replace(/[_\s]/g, "-");
-    return `${axiosInstance.defaults.baseURL}/characters/${normId}/images/icon`;
-  }, []);
 
   return (
     <div

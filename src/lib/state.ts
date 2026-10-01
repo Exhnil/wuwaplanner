@@ -30,10 +30,10 @@ export const initCharacterProgressState = (
         ]),
       ) as Record<string, SkillProgress>,
       bonusStats: {
-        1: ["none", "none", "none", "none"],
-        2: ["none", "none", "none", "none"],
+        1: ["locked", "locked", "locked", "locked"],
+        2: ["locked", "locked", "locked", "locked"],
       },
-      inherentSkills: { 1: "none", 2: "none" },
+      inherentSkills: { 1: ["locked"], 2: ["locked"] },
     },
   };
 };
@@ -60,7 +60,7 @@ const updateLevelFields = (
   side: "current" | "target",
   lvl: number,
   ascension: number,
-) => {
+): LevelProgress => {
   const map = {
     current: {
       level: "currentLevel",
@@ -127,6 +127,9 @@ export const updateSkillLevel = (
   if (value < 1 || value > 10) return prev;
   const character = prev[characterId];
   if (!character) return prev;
+  const skill = character.skills[skillName]
+  if (!skill) return prev;
+
   return {
     ...prev,
     [characterId]: {
@@ -134,7 +137,7 @@ export const updateSkillLevel = (
       skills: {
         ...character.skills,
         [skillName]: {
-          ...character.skills[skillName],
+          ...skill,
           [side]: value,
         },
       },
@@ -148,37 +151,25 @@ export const updateTalentsState = (
   side: "bonusStats" | "inherentSkills",
   rank: number,
   value: UnlockProgress,
-  index?: number,
+  index: number,
 ): Record<string, CharacterProgress> => {
   const character = prev[characterId];
   if (!character) return prev;
 
-  if (side === "bonusStats") {
-    if (index === undefined) return prev;
-    const current = character.bonusStats[rank] || [];
-    const updated = [...current];
-    updated[index] = value;
-    return {
-      ...prev,
-      [characterId]: {
-        ...character,
-        [side]: {
-          ...character.bonusStats,
-          [rank]: updated,
-        },
-      },
-    };
-  } else if (side === "inherentSkills") {
-    return {
-      ...prev,
-      [characterId]: {
-        ...character,
-        [side]: {
-          ...character.inherentSkills,
-          [rank]: value,
-        },
-      },
-    };
+  const current = character[side][rank]
+  if (!current || index < 0 || index >= current.length) return prev
+
+  const updated = [...current]
+  updated[index] = value
+
+  return {
+    ...prev,
+    [characterId]: {
+      ...character,
+      [side]: {
+        ...character[side],
+        [rank]: updated
+      }
+    }
   }
-  return prev;
 };

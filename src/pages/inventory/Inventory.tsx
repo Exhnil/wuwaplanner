@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { useItemStore } from "@/store/ItemStore";
+import { useDataStore } from "@/store/DataStore";
 import type { Item } from "@/types";
 import { useCharactersStore } from "@/store/CharactersStore";
 import { axiosInstance } from "@/lib/axios";
@@ -21,7 +21,7 @@ import { getCraftable } from "@/lib/crafting";
 const creditIcon = `${axiosInstance.defaults.baseURL}/materials/shell-credit/images/shell-credit`;
 
 const Inventory = () => {
-  const { items, fetchAllMaterials, isLoading } = useItemStore();
+  const { items, fetchAllMaterials, isLoading } = useDataStore();
   const { characters, fetchCharacters } = useCharactersStore();
   const { charactersProgress } = useCharacterProgressStore();
   const { weapons, fetchWeapons } = useWeaponStore();

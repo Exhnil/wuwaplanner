@@ -14,34 +14,38 @@ export interface Character {
   inherent_skill_materials: InherentSkillMaterials;
 }
 
-export interface Material {
+interface MaterialDrop {
   id: string;
-  name: string;
   rarity: number;
   value: number;
 }
 
+export interface MaterialRequirement {
+  id: string;
+  value: number;
+}
+
 interface AscensionMaterials {
-  [ascensionLevel: string]: Material[];
+  [ascensionLevel: string]: MaterialRequirement[];
 }
 
 interface SkillMaterials {
-  [level: string]: Material[];
+  [level: string]: MaterialRequirement[];
 }
 
 interface StatsBonusMaterials {
-  [rank: string]: Material[];
+  [rank: string]: MaterialRequirement[];
 }
 
 interface InherentSkillMaterials {
-  [rank: string]: Material[];
+  [rank: string]: MaterialRequirement[];
 }
 
 export interface CharacterProgress {
   level: LevelProgress;
   skills: Record<string, SkillProgress>;
   bonusStats: Record<number, UnlockProgress[]>;
-  inherentSkills: Record<number, UnlockProgress>;
+  inherentSkills: Record<number, UnlockProgress[]>;
 }
 
 export interface LevelProgress {
@@ -56,7 +60,7 @@ export interface SkillProgress {
   targetSkillLevel: number;
 }
 
-export type UnlockProgress = "none" | "planned" | "done";
+export type UnlockProgress = "locked" | "planned" | "unlocked";
 
 export interface Weapon {
   id: string;
@@ -81,17 +85,24 @@ export interface Item {
 
 export interface CraftRecipe {
   outputId: string;
-  inputs: { id: string; amounf: number };
+  inputs: { id: string; amount: number };
   cost?: number;
 }
+
+export type MaterialsCounts = Record<string, number>
 
 export interface Domain {
   name: string;
   id: string;
-  type: string;
+  type: DomainType;
   cost: number;
-  materials: Material[];
+  materials: MaterialDrop[];
 }
+
+export type DomainType =
+  | "Forgery Challenge"
+  | "Overlord Class"
+  | "Weekly Challenge"
 
 export interface ChangelogEntry {
   id: string;
