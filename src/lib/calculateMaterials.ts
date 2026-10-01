@@ -1,28 +1,22 @@
 import type {
   Character,
   CharacterProgress,
-  Domain,
   LevelProgress,
-  Material,
+  MaterialsCounts,
   Weapon,
   WeaponProgress,
 } from "@/types";
-
-const addMats = (totalMats: Record<string, number>, materials: Material[]) => {
-  for (const mat of materials) {
-    totalMats[mat.id] = (totalMats[mat.id] ?? 0) + mat.value;
-  }
-};
+import { addMaterials, mergeMats } from "./materialsUtils";
 
 export const calculateLevels = (
   reference: Character | Weapon,
   state: LevelProgress,
-): Record<string, number> => {
+): MaterialsCounts => {
   const totalMats: Record<string, number> = {};
 
   const {
-    currentAscensionLevel: currentAscensionLevel,
-    targetAscensionLevel: targetAscensionLevel,
+    currentAscensionLevel,
+    targetAscensionLevel,
   } = state;
 
   for (const [levelString, materials] of Object.entries(
@@ -30,7 +24,7 @@ export const calculateLevels = (
   )) {
     const level = Number(levelString);
     if (level > currentAscensionLevel && level <= targetAscensionLevel) {
-      addMats(totalMats, materials);
+      addMaterials(totalMats, materials);
     }
   }
   return totalMats;
@@ -39,7 +33,7 @@ export const calculateLevels = (
 export const calculateTalents = (
   character: Character,
   state: CharacterProgress,
-): Record<string, number> => {
+): MaterialsCounts => {
   const totalMats: Record<string, number> = {};
 
   for (const [levelString, materials] of Object.entries(
@@ -48,7 +42,7 @@ export const calculateTalents = (
     const level = Number(levelString);
     for (const skill of Object.values(state.skills)) {
       if (level > skill.currentSkillLevel && level <= skill.targetSkillLevel) {
-        addMats(totalMats, materials);
+        addMaterials(totalMats, materials);
         break;
       }
     }
@@ -61,17 +55,19 @@ export const calculateTalents = (
 
       const key = `rank_${rank}`;
       const mats = character.stats_bonus_materials[key];
-      if (mats) addMats(totalMats, mats);
+      if (mats) addMaterials(totalMats, mats);
     }
   }
 
   for (const [rank, inherent] of Object.entries(state.inherentSkills)) {
     if (!inherent) continue;
-    if (inherent !== "planned") continue;
+    for (const inh of inherent) {
+      if (inh !== "planned") continue;
+      const key = `rank_${rank}`;
+      const mats = character.inherent_skill_materials[key];
+      if (mats) addMaterials(totalMats, mats);
+    }
 
-    const key = `rank_${rank}`;
-    const mats = character.stats_bonus_materials[key];
-    if (mats) addMats(totalMats, mats);
   }
   return totalMats;
 };
@@ -81,7 +77,7 @@ export const calculate = (
   weapons: Weapon[],
   charactersProgress: Record<string, CharacterProgress>,
   weaponsProgress: Record<string, WeaponProgress>,
-): Record<string, number> => {
+): MaterialsCounts => {
   const totalMats: Record<string, number> = {};
 
   const charaMap = Object.fromEntries(characters.map((c) => [c.id, c]));
@@ -103,51 +99,6 @@ export const calculate = (
   return totalMats;
 };
 
-const mergeMats = (
-  target: Record<string, number>,
-  source: Record<string, number>,
-) => {
-  for (const [id, quantity] of Object.entries(source)) {
-    if (!id || typeof quantity !== "number") {
-      continue;
-    }
-    target[id] = (target[id] ?? 0) + quantity;
-  }
-};
 
-export const computeDomainRuns = (
-  domain: Domain,
-  requiredMap: Record<string, number>,
-  inventory: Record<string, number>,
-): number => {
-  if (domain.type === "Forgery Challenge" && domain.materials.length === 4) {
-    let totalRequired = 0;
-    let totalOwned = 0;
-    let totalDropPerRun = 0;
 
-    domain.materials.forEach((mat) => {
-      const weight = Math.pow(3, mat.rarity - 2);
-      const owned = inventory[mat.id] ?? 0;
-      const required = requiredMap[mat.id] ?? 0;
 
-      totalRequired += required * weight;
-      totalOwned += owned * weight;
-      totalDropPerRun += mat.value * weight;
-    });
-
-    const missing = Math.max(totalRequired - totalOwned, 0);
-
-    return Math.ceil(missing / totalDropPerRun);
-  }
-
-  let maxRuns = 0;
-
-  for (const mat of domain.materials) {
-    const required = requiredMap[mat.id] ?? 0;
-    const owned = inventory[mat.id] ?? 0;
-    const needed = Math.max(required - owned, 0);
-    const runs = Math.ceil(needed / mat.value);
-    if (runs > maxRuns) maxRuns = runs;
-  }
-  return maxRuns;
-};

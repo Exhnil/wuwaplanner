@@ -16,6 +16,7 @@ const CharactersGrid = ({ rarity, attribute, weapon }: CharactersGridProps) => {
   const { characters, fetchCharacters } = useCharactersStore();
   const { initCharProgress } = useCharacterProgressStore();
 
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(
     null,
   );
@@ -36,12 +37,13 @@ const CharactersGrid = ({ rarity, attribute, weapon }: CharactersGridProps) => {
   const handleOpenCharacter = (character: Character) => {
     initCharProgress(character);
     setSelectedCharacter(character);
+    setIsModalOpen(true);
   };
 
   return (
     <>
       <div className="mt-6">
-        <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 lg:grid-cols-8 gap-x-4 gap-y-8">
+        <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-10 lg:grid-cols-10 gap-x-4 gap-y-8">
           {filteredCharacters
             .sort((a, b) => a.name.localeCompare(b.name))
             .map((character) => (
@@ -55,9 +57,9 @@ const CharactersGrid = ({ rarity, attribute, weapon }: CharactersGridProps) => {
       </div>
       {selectedCharacter && (
         <CharacterModal
-          open={true}
+          open={isModalOpen}
           character={selectedCharacter}
-          onClose={() => setSelectedCharacter(null)}
+          onClose={() => setIsModalOpen(false)}
         />
       )}
     </>

@@ -1,4 +1,5 @@
 import { axiosInstance } from "@/lib/axios";
+import { parseError } from "@/lib/errors";
 import type { Weapon } from "@/types";
 import { create } from "zustand";
 
@@ -29,9 +30,3 @@ export const useWeaponStore = create<WeaponStore>((set, get) => ({
     }
   },
 }));
-
-const parseError = (error: unknown): string => {
-  if (typeof error === "string") return error;
-  if (error instanceof Error) return error.message;
-  return "An unknown error occurred";
-};

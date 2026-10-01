@@ -1,4 +1,5 @@
 import { axiosInstance } from "@/lib/axios";
+import { parseError } from "@/lib/errors";
 import { create } from "zustand";
 
 interface MiscStore {
@@ -23,9 +24,11 @@ export const useMiscStore = create<MiscStore>((set, get) => ({
     set({ isLoading: true, error: null });
     try {
       const response = await axiosInstance.get("/misc/misc");
-      set({ attributes: response.data.attributes });
-      set({ weaponsTypes: response.data.weapons });
-      set({ nations: response.data.nations });
+      set({
+        attributes: response.data.attributes,
+        weaponsTypes: response.data.weapons,
+        nations: response.data.nations
+      });
     } catch (error: unknown) {
       set({ error: parseError(error) });
     } finally {
@@ -33,9 +36,3 @@ export const useMiscStore = create<MiscStore>((set, get) => ({
     }
   },
 }));
-
-const parseError = (error: unknown): string => {
-  if (typeof error === "string") return error;
-  if (error instanceof Error) return error.message;
-  return "An unknown error occurred";
-};
