@@ -1,12 +1,13 @@
 import type {
   Character,
   CharacterProgress,
+  Item,
   LevelProgress,
   MaterialsCounts,
   Weapon,
   WeaponProgress,
 } from "@/types";
-import { addMaterials, mergeMats } from "./materialsUtils";
+import { addMaterials, getItemWeight, mergeMats } from "./materialsUtils";
 
 export const calculateLevels = (
   reference: Character | Weapon,
@@ -71,6 +72,28 @@ export const calculateTalents = (
   }
   return totalMats;
 };
+
+export const calculateGroupValue = (items: Item[],
+  inventory: Record<string, number>,
+  requiredMap: Record<string, number>,) => {
+  const map = new Map<string, { owned: number; required: number }>();
+  items.forEach((item) => {
+    if (!item.group || item.group === "none") return;
+    const weight = getItemWeight(item.rarity);
+
+    const owned = inventory[item.id] ?? 0;
+    const required = requiredMap[item.id] ?? 0;
+
+    if (!map.has(item.group)) {
+      map.set(item.group, { owned: 0, required: 0 });
+    }
+
+    const entry = map.get(item.group)!;
+    entry.owned += owned * weight;
+    entry.required += required * weight;
+  });
+  return map;
+}
 
 export const calculate = (
   characters: Character[],

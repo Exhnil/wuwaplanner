@@ -13,7 +13,7 @@ import { typeOrder } from "@/lib/constants";
 import { useWeaponStore } from "@/store/WeaponStore";
 import { useInventoryStore } from "@/store/InventoryStore";
 import InventoryItem from "./components/InventoryItem";
-import { calculate } from "@/lib/calculateMaterials";
+import { calculate, calculateGroupValue } from "@/lib/calculateMaterials";
 import { useCharacterProgressStore } from "@/store/CharacterProgressStore";
 import { useWeaponProgressStore } from "@/store/WeaponProgressStore";
 import { getCraftable } from "@/lib/crafting";
@@ -45,33 +45,9 @@ const Inventory = () => {
     return calculate(characters, weapons, charactersProgress, weaponsProgress);
   }, [characters, weapons, charactersProgress, weaponsProgress]);
 
-  const getItemWeight = (rarity: number) => {
-    return Math.pow(3, rarity - 2);
-  };
-
   const groupValues = useMemo(() => {
-    const map = new Map<string, { owned: number; required: number }>();
-    items.forEach((item) => {
-      if (!item.group || item.group === "none") return;
-      const weight = getItemWeight(item.rarity);
-
-      const owned = inventoryState[item.id] ?? 0;
-      const required = requiredMap[item.id] ?? 0;
-
-      if (!map.has(item.group)) {
-        map.set(item.group, { owned: 0, required: 0 });
-      }
-
-      const entry = map.get(item.group)!;
-      entry.owned += owned * weight;
-      entry.required += required * weight;
-    });
-    return map;
+    return calculateGroupValue(items, inventoryState, requiredMap)
   }, [items, inventoryState, requiredMap]);
-
-  const handleOwnedChange = (id: string, value: number) => {
-    setOwned(id, value);
-  };
 
   const sortItems = (a: Item, b: Item) => {
     const typeDiff = typeOrder.indexOf(a.type) - typeOrder.indexOf(b.type);
@@ -132,7 +108,7 @@ const Inventory = () => {
                     <input
                       value={inventoryState[item.id] ?? 0}
                       onChange={(e) =>
-                        handleOwnedChange(item.id, Number(e.target.value))
+                        setOwned(item.id, Number(e.target.value))
                       }
                       className="text-center flex-1 rounded-br px-1 py-0.5 bg-zinc-700"
                     />
@@ -168,7 +144,7 @@ const Inventory = () => {
                   required={required}
                   craftable={craftable}
                   isGroupEnough={isGroupEnough}
-                  onChange={(value) => handleOwnedChange(item.id, value)}
+                  onChange={(value) => setOwned(item.id, value)}
                 />
               );
             })}

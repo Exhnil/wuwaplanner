@@ -1,4 +1,5 @@
 import type { Domain } from "@/types";
+import { getItemWeight } from "./materialsUtils";
 
 export const computeDomainRuns = (
   domain: Domain,
@@ -11,7 +12,7 @@ export const computeDomainRuns = (
     let totalDropPerRun = 0;
 
     domain.materials.forEach((mat) => {
-      const weight = Math.pow(3, mat.rarity - 2);
+      const weight = getItemWeight(mat.rarity);
       const owned = inventory[mat.id] ?? 0;
       const required = requiredMap[mat.id] ?? 0;
 

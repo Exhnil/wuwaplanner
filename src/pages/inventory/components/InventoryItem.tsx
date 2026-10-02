@@ -3,11 +3,10 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { axiosInstance } from "@/lib/axios";
-import { getMaterialIcon } from "@/lib/images";
+import { getMaterialIcon, getPlaceholderIcon } from "@/lib/images";
 import type { Item } from "@/types";
 import { Minus, Plus } from "lucide-react";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 
 interface InventoryItemProps {
   item: Item;
@@ -25,10 +24,8 @@ const rarityColors: Record<number, string> = {
   5: "bg-equator-700",
 };
 
-const placeholderPath = `${axiosInstance.defaults.baseURL}/materials/placeholder/images/icon`;
-
 const getRarityColor = (rarity: number) => {
-  return rarityColors[rarity] ?? "from-transparent";
+  return rarityColors[rarity] ?? "bg-transparent";
 };
 
 const InventoryItem = ({
@@ -43,15 +40,15 @@ const InventoryItem = ({
     getMaterialIcon(item.id),
   );
 
-  const isConvertible = item.group && item.group !== "none";
+  const isConvertible = Boolean(item.group && item.group !== "none");
 
   const isEnough = isConvertible ? isGroupEnough : owned >= required;
 
-  const handleError = useCallback(() => {
-    setImgSrc(placeholderPath);
-  }, []);
+  const handleError = () => {
+    setImgSrc(getPlaceholderIcon());
+  };
 
-  const increment = () => onChange(owned + 1);
+  const increment = () => onChange(Math.min(9999, owned + 1));
   const decrement = () => onChange(Math.max(0, owned - 1));
 
   return (
