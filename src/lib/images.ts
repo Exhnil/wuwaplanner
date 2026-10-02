@@ -13,8 +13,11 @@ const normalizeCharacterId = (id: string) =>
 
 export const getMaterialIcon = (id: string) => {
     const normId = normalizeId(id)
-
     return `${axiosInstance.defaults.baseURL}/materials/${normId}/images/${normId}`
+}
+
+export const getPlaceholderIcon = () => {
+    return `${axiosInstance.defaults.baseURL}/materials/placeholder/images/icon`
 }
 
 export const getWeaponIcon = (id: string) => {
