@@ -110,3 +110,8 @@ export interface ChangelogEntry {
   title: string;
   content: string;
 }
+
+export interface ChangelogEntry {
+  date: string
+  message: string
+}
