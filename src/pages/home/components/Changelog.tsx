@@ -1,5 +1,5 @@
 import type { ChangelogEntry } from "@/types";
-import { Circle, Icon, Package, Sparkles, UserRound, Wrench } from "lucide-react";
+import { Circle, Package, Sparkles, UserRound, Wrench } from "lucide-react";
 
 
 interface ChangelogProps {
