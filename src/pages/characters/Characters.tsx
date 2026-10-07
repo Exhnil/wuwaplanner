@@ -18,19 +18,27 @@ const Characters = () => {
 
   const getSavedFilters = () => {
     const saved = localStorage.getItem("characterFilters");
-    return saved ? JSON.parse(saved) : null;
+
+    if (!saved) {
+      return null;
+    }
+
+    try {
+      return JSON.parse(saved);
+    } catch {
+      return null;
+    }
   };
 
+  const savedFilter = getSavedFilters();
+
   const [selectedRarity, setSelectedRarity] = useState<string>(() => {
-    const savedFilter = getSavedFilters();
     return savedFilter?.rarity ?? "";
   });
   const [selectedAttribute, setSelectedAttribute] = useState<string>(() => {
-    const savedFilter = getSavedFilters();
     return savedFilter?.attribute ?? "";
   });
   const [selectedWeapon, setSelectedWeapon] = useState<string>(() => {
-    const savedFilter = getSavedFilters();
     return savedFilter?.weapon ?? "";
   });
 

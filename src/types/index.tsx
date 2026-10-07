@@ -105,8 +105,6 @@ export type DomainType =
   | "Weekly Challenge"
 
 export interface ChangelogEntry {
-  id: string;
-  date: string;
-  title: string;
-  content: string;
+  date: string
+  message: string
 }

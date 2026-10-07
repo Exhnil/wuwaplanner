@@ -18,3 +18,7 @@ export const mergeMats = (
         addMaterial(target, id, quantity)
     }
 };
+
+export const getItemWeight = (rarity: number) => {
+    return Math.pow(3, rarity - 2);
+};
