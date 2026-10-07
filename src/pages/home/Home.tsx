@@ -1,7 +1,13 @@
-import type { ChangelogEntry } from "@/types";
+import Changelog from "./components/Changelog";
+import { useChangelogStore } from "@/store/ChangelogStore";
+import { useEffect } from "react";
 
 const Home = () => {
-  const changelog: ChangelogEntry[] = [];
+  const { changelog, fetchChangelog } = useChangelogStore()
+
+  useEffect(() => {
+    fetchChangelog()
+  }, [fetchChangelog])
 
   return (
     <div className="relative min-h-full">
@@ -24,26 +30,7 @@ const Home = () => {
             inventory and find our where and how much to farm materials.
           </p>
         </div>
-        <div className="max-w-5xl w-full space-y-2">
-          <h2 className="text-lg font-semibold mb-2">Changelog</h2>
-          <div className="rounded-xl bg-zinc-700 p-8">
-            {changelog.length === 0 ? (
-              <p className="text-sm text-zinc-300">
-                No updates yet. This is where site feature changes will appear
-              </p>
-            ) : (
-              <ul className="space-y-3">
-                {changelog.map((entry) => (
-                  <li>
-                    <p>{entry.date}</p>
-                    <p>{entry.title}</p>
-                    <p>{entry.content}</p>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-        </div>
+        <Changelog entries={changelog} />
       </div>
     </div>
   );
