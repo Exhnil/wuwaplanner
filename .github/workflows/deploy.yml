@@ -80,7 +80,7 @@ jobs:
 
                   git pull --ff-only origin master
 
-                  docker build -- wuwa-front:latest .
+                  docker build -t wuwa-front:latest .
 
                   docker rm -f wuwa-front 2>/dev/null || true
 
