@@ -8,7 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { ranks, skillNames } from "@/lib/constants";
 import type { Character, UnlockProgress } from "@/types";
-import { Check, ChevronRight, ExternalLink, Flag, Save, Target, Trash2 } from "lucide-react";
+import { Check, ChevronRight, ExternalLink, Flag, Save, Trash2 } from "lucide-react";
 import SkillLevelInput from "./SkillLevelInput";
 import LevelSelector from "./LevelSelector";
 import { Button } from "@/components/ui/button";
