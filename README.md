@@ -1,79 +1,80 @@
-Work In Progress
+# Wuthering Waves Planner
 
-Hosted here : [www.wuwaplanner.com](https://www.wuwaplanner.com/)
+[![React](https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=black)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=white)](https://vite.dev/)
+[![Website](https://img.shields.io/badge/Website-Live-brightgreen?logo=firefox&logoColor=white)](https://wuwaplanner.com)
+[![CI/CD](https://github.com/Exhnil/wuwaplanner/actions/workflows/deploy.yml/badge.svg)](https://github.com/Exhnil/wuwaplanner/actions/workflows/deploy.yml)
 
-Saves are located in localstorage
+A fan-made tool for **Wuthering Waves**, designed to help players plan character and weapon progression, track their resources, and optimize their farming sessions.
 
-# React + TypeScript + Vite
+## Overview
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The in-game planner is useful for individual characters, but planning several builds at once and targeting specific progression levels can be cumbersome.
 
-Currently, two official plugins are available:
+**Wuthering Waves Planner** provides a more granular, batch-oriented approach to build planning. Select multiple characters and weapons, define your current and target levels, and let the application help you work out what you need to reach your goals.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## React Compiler
+### Character & Weapon Planning
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Select multiple characters and weapons to plan their progression in batches.
+- Define a starting level and a target level for each character or weapon.
+- Filter characters and weapons to quickly find the ones you want to work on.
+- Plan progression around your own goals instead of a fixed, one-character-at-a-time workflow.
 
-## Expanding the ESLint configuration
+### Inventory & Resource Tracking
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Keep track of the resources you currently own in-game.
+- Calculate the materials required to reach your planned character and weapon levels.
+- Compare your available resources against your total requirements.
+- Identify which materials you still need to collect.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Farming Planner
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- Consolidate resource requirements by farming domain or source.
+- See where to farm each material and how much you need.
+- Estimate the number of runs and the required Waveplates (energy) to collect the necessary resources.
+- Turn your build plans into a practical farming checklist.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Roadmap
+
+Potential future additions include:
+
+- **Cross-device synchronization:** Keep your plans and inventory synchronized across devices.
+- **Achievements:** Track progression milestones and in-game achievements.
+- **Wiki & database:** Browse character, weapon, and material information in a centralized reference.
+
+These are ideas for future development and are not necessarily available in the current version.
+
+## Getting Started
+
+Clone the repository and install the dependencies:
+
+```bash
+git clone https://github.com/Exhnil/wuwaplanner.git
+cd wuwaplanner
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Start the development server:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
+
+Build the application for production:
+
+```bash
+npm run build
+```
+
+Preview the production build locally:
+
+```bash
+npm run preview
+```
+
+## Disclaimer
+
+This is an unofficial, fan-made project. Wuthering Waves and its related assets are the property of their respective owners. This project is not affiliated with or endorsed by Kuro Games.
