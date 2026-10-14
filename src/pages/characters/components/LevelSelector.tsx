@@ -34,7 +34,7 @@ const LevelSelector = ({ ascension, level, onSelect, minValue = 1 }: LevelSelect
     return (
         <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
-                <Button variant="outline" size="lg" className="w-20">
+                <Button variant="outline" size="lg" className="w-20 cursor-pointer">
                     {btn?.label ?? level}
                     {btn?.isTier && <ChevronUp className="w-3 h-3 text-yellow-400" />}
                 </Button>
@@ -48,7 +48,7 @@ const LevelSelector = ({ ascension, level, onSelect, minValue = 1 }: LevelSelect
                                 key={`${btn.level}-${btn.asc}`}
                                 variant="outline"
                                 size="sm"
-                                className="rounded-full"
+                                className="rounded-full cursor-pointer"
                                 disabled={disabled}
                                 onClick={() => {
                                     onSelect(btn.level, btn.asc)

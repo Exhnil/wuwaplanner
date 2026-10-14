@@ -8,7 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { ranks, skillNames } from "@/lib/constants";
 import type { Character, UnlockProgress } from "@/types";
-import { Check, ChevronRight, Flag, Save } from "lucide-react";
+import { Check, ChevronRight, ExternalLink, Flag, Save, Target, Trash2 } from "lucide-react";
 import SkillLevelInput from "./SkillLevelInput";
 import LevelSelector from "./LevelSelector";
 import { Button } from "@/components/ui/button";
@@ -51,7 +51,13 @@ const CharacterModal = ({ character, open, onClose }: CharacterModalProps) => {
           <DialogTitle className="text-2xl font-bold">
             {character.name}
           </DialogTitle>
+
           <div className="flex gap-2">
+            <a href={`https://prydwen.gg/wuthering-waves/characters/${character.id}`}
+              target="_blank"
+              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-md border border-zinc-500 bg-zinc-600 hover:bg-zinc-500 text-white text-sm font-semibold transition-colors">
+              Guide <ExternalLink className="w-4 h-4 mr-1" />
+            </a>
             <Button
               variant="secondary"
               size="sm"
@@ -74,6 +80,7 @@ const CharacterModal = ({ character, open, onClose }: CharacterModalProps) => {
                   size="sm"
                   className="px-3 bg-red-700 hover:bg-red-600 font-semibold"
                 >
+                  <Trash2 className="w-4 h-4 mr-1" />
                   Reset
                 </Button>
               }
@@ -85,13 +92,13 @@ const CharacterModal = ({ character, open, onClose }: CharacterModalProps) => {
             <TabsList className="flex w-full justify-center gap-2 mb-4 bg-zinc-800 p-1 rounded-lg">
               <TabsTrigger
                 value="level"
-                className="data-[state-active]:bg-zinc-700 data-[state-active]:text-white"
+                className="data-[state-active]:bg-zinc-700 data-[state-active]:text-white cursor-pointer"
               >
                 Level
               </TabsTrigger>
               <TabsTrigger
                 value="forte"
-                className="data-[state-active]:bg-zinc-700 data-[state-active]:text-white"
+                className="data-[state-active]:bg-zinc-700 data-[state-active]:text-white cursor-pointer"
               >
                 Forte
               </TabsTrigger>
@@ -204,13 +211,13 @@ const CharacterModal = ({ character, open, onClose }: CharacterModalProps) => {
                             >
                               <ToggleGroupItem
                                 value="planned"
-                                className="bg-zinc-600 hover:bg-zinc-500"
+                                className="bg-zinc-600 hover:bg-zinc-500 cursor-pointer"
                               >
                                 <Flag />
                               </ToggleGroupItem>
                               <ToggleGroupItem
                                 value="unlocked"
-                                className="bg-zinc-600 hover:bg-zinc-500"
+                                className="bg-zinc-600 hover:bg-zinc-500 cursor-pointer"
                               >
                                 <Check />
                               </ToggleGroupItem>
@@ -244,13 +251,13 @@ const CharacterModal = ({ character, open, onClose }: CharacterModalProps) => {
                             }
                           >
                             <ToggleGroupItem
-                              className="bg-zinc-600 hover:bg-zinc-500"
+                              className="bg-zinc-600 hover:bg-zinc-500 cursor-pointer"
                               value="planned"
                             >
                               <Flag />
                             </ToggleGroupItem>
                             <ToggleGroupItem
-                              className="bg-zinc-600 hover:bg-zinc-500"
+                              className="bg-zinc-600 hover:bg-zinc-500 cursor-pointer"
                               value="unlocked"
                             >
                               <Check />
@@ -266,7 +273,7 @@ const CharacterModal = ({ character, open, onClose }: CharacterModalProps) => {
           </Tabs>
         </div>
       </DialogContent>
-    </Dialog>
+    </Dialog >
   );
 };
 
