@@ -98,7 +98,7 @@ export const updateWeaponLevelState = (
     ...prev,
     [id]: {
       ...weapon,
-      level: updateLevelFields(weapon.level, side, lvl, ascension),
+      level: level,
     },
   };
 };
@@ -140,7 +140,7 @@ export const updateSkillLevel = (
   const skill = character.skills[skillName]
   if (!skill) return prev;
 
-  if (side === "currentSkillLevel" && skill.currentSkillLevel > skill.targetSkillLevel) {
+  if (side === "currentSkillLevel") {
     skill.currentSkillLevel = value
     if (skill.currentSkillLevel > skill.targetSkillLevel) {
       skill.targetSkillLevel = skill.currentSkillLevel

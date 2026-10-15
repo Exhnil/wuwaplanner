@@ -131,6 +131,9 @@ const CharacterModal = ({ character, open, onClose }: CharacterModalProps) => {
                   minValue={
                     progress.level.currentLevel
                   }
+                  minAscension={
+                    progress.level.currentAscensionLevel
+                  }
                 />
               </div>
             </TabsContent>

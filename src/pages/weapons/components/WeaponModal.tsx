@@ -21,6 +21,8 @@ const WeaponModal = ({ open, weapon, onClose }: WeaponModalProps) => {
   const { weaponsProgress, updateLevel } = useWeaponProgressStore();
 
   if (!weapon) return null;
+  const progress = weaponsProgress[weapon.id]
+
   return (
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent
@@ -54,20 +56,21 @@ const WeaponModal = ({ open, weapon, onClose }: WeaponModalProps) => {
           </div>
           <div className="flex items-center justify-center space-x-4">
             <LevelSelector
-              ascension={weaponsProgress[weapon.id].level.currentAscensionLevel}
-              level={weaponsProgress[weapon.id].level.currentLevel}
+              ascension={progress.level.currentAscensionLevel}
+              level={progress.level.currentLevel}
               onSelect={(lvl, ascension) =>
                 updateLevel(weapon.id, "current", lvl, ascension)
               }
             />
             <ChevronRight className="h-6 w-6" />
             <LevelSelector
-              ascension={weaponsProgress[weapon.id].level.targetAscensionLevel}
-              level={weaponsProgress[weapon.id].level.targetLevel}
+              ascension={progress.level.targetAscensionLevel}
+              level={progress.level.targetLevel}
               onSelect={(lvl, ascension) =>
                 updateLevel(weapon.id, "target", lvl, ascension)
               }
-              minValue={weaponsProgress[weapon.id]?.level.currentLevel ?? 1}
+              minValue={progress.level.currentLevel}
+              minAscension={progress.level.currentAscensionLevel}
             />
           </div>
         </div>

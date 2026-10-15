@@ -8,6 +8,7 @@ interface LevelSelectorProps {
     level: number
     onSelect: (lvl: number, ascension: number) => void
     minValue?: number
+    minAscension?: number
 }
 
 const LEVEL_BUTTONS: { level: number; asc: number; label: string, isTier?: boolean }[] = [
@@ -27,7 +28,7 @@ const LEVEL_BUTTONS: { level: number; asc: number; label: string, isTier?: boole
     { level: 90, asc: 6, label: '90' },
 ]
 
-const LevelSelector = ({ ascension, level, onSelect, minValue = 1 }: LevelSelectorProps) => {
+const LevelSelector = ({ ascension, level, onSelect, minValue = 1, minAscension = 0 }: LevelSelectorProps) => {
     const [open, setOpen] = useState(false)
     const btn = LEVEL_BUTTONS.find(btn => btn.level === level && btn.asc === ascension)
 
@@ -42,7 +43,7 @@ const LevelSelector = ({ ascension, level, onSelect, minValue = 1 }: LevelSelect
             <PopoverContent className="w-64 bg-zinc-800">
                 <div className="grid grid-cols-4 gap-2">
                     {LEVEL_BUTTONS.map((btn) => {
-                        const disabled = btn.level < minValue
+                        const disabled = btn.level < minValue || (btn.level === minValue && btn.asc < minAscension)
                         return (
                             <Button
                                 key={`${btn.level}-${btn.asc}`}
