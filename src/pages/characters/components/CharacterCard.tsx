@@ -44,7 +44,7 @@ const CharacterCard = ({
             className={`absolute bottom-0 left-0 w-full h-1 ${getRarityColor(character.rarity)}`}
           />
 
-          <div className="absolute top-1 right-1 w-7 h-7 rounded-full bg-iron-900/80 flex items-center justify-center shadow-md">
+          <div className="absolute top-1 left-1 w-7 h-7 rounded-full bg-iron-900/80 flex items-center justify-center shadow-md">
             <img
               src={attributeIcons[character.attribute]}
               className="w-5 h-5"

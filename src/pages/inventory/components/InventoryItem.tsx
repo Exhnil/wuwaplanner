@@ -96,7 +96,7 @@ const InventoryItem = ({
         </span>
         <div className="flex items-center bg-zinc-700">
           <button className="text-white" onClick={increment}>
-            <Plus className="w-4 h-4" />
+            <Plus className="w-4 h-4 cursor-pointer" />
           </button>
           <input
             value={owned}
@@ -104,7 +104,7 @@ const InventoryItem = ({
             className="flex-1 text-center rounded-none px-1 py-0.5 bg-zinc-700 min-w-[2rem]"
           />
           <button className="text-white" onClick={decrement}>
-            <Minus className="w-4 h-4" />
+            <Minus className="w-4 h-4 cursor-pointer" />
           </button>
         </div>
       </div>

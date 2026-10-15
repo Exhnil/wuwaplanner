@@ -184,7 +184,7 @@ const Planner = () => {
 												<img
 													src={getMaterialIcon(item.id)}
 													alt={item.name}
-													className="w-16 h-16 object-cover"
+													className="w-16 h-16 object-cover cursor-pointer"
 												/>
 											</TooltipTrigger>
 										</MaterialPopover>
