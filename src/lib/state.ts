@@ -89,6 +89,11 @@ export const updateWeaponLevelState = (
   const weapon = prev[id];
   if (!weapon) return prev;
 
+  let level = updateLevelFields(weapon.level, side, lvl, ascension)
+
+  if (side === "current" && level.currentLevel > level.targetLevel) {
+    level = updateLevelFields(level, "target", level.currentLevel, level.currentAscensionLevel)
+  }
   return {
     ...prev,
     [id]: {
@@ -108,11 +113,16 @@ export const updateCharacterLevelState = (
   const character = prev[id];
   if (!character) return prev;
 
+  let level = updateLevelFields(character.level, side, lvl, ascension)
+
+  if (side === "current" && level.currentLevel > level.targetLevel) {
+    level = updateLevelFields(level, "target", level.currentLevel, level.currentAscensionLevel)
+  }
   return {
     ...prev,
     [id]: {
       ...character,
-      level: updateLevelFields(character.level, side, lvl, ascension),
+      level: level,
     },
   };
 };
@@ -130,6 +140,16 @@ export const updateSkillLevel = (
   const skill = character.skills[skillName]
   if (!skill) return prev;
 
+  if (side === "currentSkillLevel" && skill.currentSkillLevel > skill.targetSkillLevel) {
+    skill.currentSkillLevel = value
+    if (skill.currentSkillLevel > skill.targetSkillLevel) {
+      skill.targetSkillLevel = skill.currentSkillLevel
+    }
+  }
+  else {
+    skill.targetSkillLevel = value
+  }
+
   return {
     ...prev,
     [characterId]: {
@@ -137,8 +157,7 @@ export const updateSkillLevel = (
       skills: {
         ...character.skills,
         [skillName]: {
-          ...skill,
-          [side]: value,
+          ...skill
         },
       },
     },
